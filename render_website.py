@@ -1,7 +1,7 @@
 import json
 
-from livereload import Server, shell
-
+from more_itertools import chunked
+from livereload import Server
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 def on_reload():
@@ -9,6 +9,8 @@ def on_reload():
         content_json = my_file.read()
 
     content = json.loads(content_json)
+    content_2 = list(chunked(content, 2))
+    
     env = Environment(
         loader=FileSystemLoader('.'),
         autoescape=select_autoescape(['html', 'xml'])
@@ -17,7 +19,7 @@ def on_reload():
     template = env.get_template('template.html')
 
     rendered_page = template.render(
-        content = content
+        content = content_2
     )
 
     with open('index.html', 'w', encoding="utf8") as file:

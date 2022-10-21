@@ -12,20 +12,24 @@
   </head>
   <body>
     {% for i in content %}
-    <div class="card mb-3" style="max-width: 540px;">
-        <div class="row no-gutters">
-          <div class="col-md-4">
-            <img src={{i.img_src}} class="card-img" alt="Error">
+    <div class="container">
+      <div class="row justify-content-around">
+        <div class="card" style="width: 18rem;">
+          <img src="{{i[0].img_src}}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{i[0].title}}</h5>
+            <p class="card-text">{{i[0].author}}</p>
           </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">{{i.title}}</h5>
-              <p class="card-text">{{i.author}}</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+          <img src="{{i[1].img_src}}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{i[1].title}}</h5>
+            <p class="card-text">{{i[1].author}}</p>
           </div>
         </div>
       </div>
+    </div>
     {% endfor %}
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
