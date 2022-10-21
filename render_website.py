@@ -9,8 +9,8 @@ def on_reload():
         content_json = my_file.read()
 
     content = json.loads(content_json)
+
     content_2 = list(chunked(content, 2))
-    
     env = Environment(
         loader=FileSystemLoader('.'),
         autoescape=select_autoescape(['html', 'xml'])
