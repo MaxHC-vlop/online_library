@@ -1,4 +1,5 @@
 import json
+import os
 
 from more_itertools import chunked
 from livereload import Server
@@ -11,6 +12,13 @@ def on_reload():
     content = json.loads(content_json)
 
     content_2 = list(chunked(content, 2))
+
+    content_3 = list(chunked(content_2, 10))
+
+    folder = 'pages'
+
+    os.makedirs(folder, exist_ok=True)
+
     env = Environment(
         loader=FileSystemLoader('.'),
         autoescape=select_autoescape(['html', 'xml'])
@@ -18,12 +26,18 @@ def on_reload():
 
     template = env.get_template('template.html')
 
-    rendered_page = template.render(
-        content = content_2
-    )
+    for number, page in enumerate(content_3):
 
-    with open('index.html', 'w', encoding="utf8") as file:
-        file.write(rendered_page)
+        filename = f'index{number}.html'
+
+        page_path = os.path.join(folder, filename)
+
+        rendered_page = template.render(
+            content = page
+        )
+
+        with open(page_path, 'w', encoding="utf8") as file:
+            file.write(rendered_page)
 
 
 def main():
