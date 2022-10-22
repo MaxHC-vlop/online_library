@@ -11,28 +11,35 @@
     <title>Hello, world!</title>
   </head>
   <body>
+  <div class="container">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="#">{{num}}</a></li>
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+      </ul>
+    </nav>
     {% for i in content %}
-    <div class="container">
-      <div class="row justify-content-around">
+      <div class="row">
         <div class="card" style="width: 18rem;">
           <img src="{{i[0].img_src}}" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">{{i[0].title}}</h5>
-            <p class="card-text">{{i[0].author}}</p>
-            <a href="{{i[0].book_path}}" target="_blank">Читать</a>
+            <div class="card-body">
+              <h5 class="card-title">{{i[0].title}}</h5>
+              <p class="card-text">{{i[0].author}}</p>
+              <a href="{{i[0].book_path}}" target="_blank">Читать</a>
+            </div>
           </div>
-        </div>
-        <div class="card" style="width: 18rem;">
-          <img src="{{i[1].img_src}}" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">{{i[1].title}}</h5>
-            <p class="card-text">{{i[1].author}}</p>
-            <a href="{{i[1].book_path}}" target="_blank">Читать</a>
+          <div class="card" style="width: 18rem;">
+            <img src="{{i[1].img_src}}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{i[1].title}}</h5>
+              <p class="card-text">{{i[1].author}}</p>
+              <a href="{{i[1].book_path}}" target="_blank">Читать</a>
           </div>
         </div>
       </div>
-    </div>
     {% endfor %}
+  </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

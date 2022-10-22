@@ -1,4 +1,5 @@
 import json
+from operator import index
 import os
 
 from more_itertools import chunked
@@ -26,14 +27,16 @@ def on_reload():
 
     template = env.get_template('template.html')
 
-    for number, page in enumerate(content_3):
+    for number, page in enumerate(content_3, start=1):
 
         filename = f'index{number}.html'
 
         page_path = os.path.join(folder, filename)
 
         rendered_page = template.render(
-            content = page
+            content = page,
+            num = number,
+            nums = len(os.listdir(folder))
         )
 
         with open(page_path, 'w', encoding="utf8") as file:
