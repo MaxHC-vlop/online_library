@@ -35,7 +35,7 @@ def on_reload():
         rendered_page = template.render(
             content = page,
             num = number,
-            nums = len(os.listdir(folder))
+            nums = len(content_3)
         )
 
         with open(page_path, 'w', encoding="utf8") as file:
