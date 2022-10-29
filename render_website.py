@@ -1,5 +1,4 @@
 import json
-from operator import index
 import os
 
 from more_itertools import chunked
