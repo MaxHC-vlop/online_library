@@ -46,6 +46,11 @@
                   <div class="card-body">
                     <h5 class="card-title">{{q.title}}</h5>
                     <p class="card-text">{{q.author}}</p>
+                    <p>
+                      {% for s in q.genres %}
+                        <span class="badge badge-light">{{s}}</span>
+                      {% endfor %}
+                    </p>
                     <p class="card-text"><a href="{{q.book_path}}" target="_blank">Читать</a></p>
                   </div>
                 </div>
