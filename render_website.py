@@ -1,5 +1,6 @@
 import json
 import os
+import shutil
 
 from more_itertools import chunked
 from livereload import Server
@@ -46,6 +47,9 @@ def on_reload(folder='pages'):
 
 def main():
     folder = 'pages'
+
+    if os.path.exists(folder):
+        shutil.rmtree(folder)
 
     os.makedirs(folder, exist_ok=True)
 
