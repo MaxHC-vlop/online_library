@@ -3,22 +3,19 @@ import os
 
 from more_itertools import chunked
 from livereload import Server
-from jinja2 import Environment, FileSystemLoader, select_autoescape
+from jinja2 import Environment, FileSystemLoader
+from jinja2 import select_autoescape
 
-def on_reload():
-    with open("books_content.json", "r") as my_file:
-        content_json = my_file.read()
 
-    content = json.loads(content_json)
+def get_books_description():
+    filename = 'books_content.json'
+    with open(filename, "r") as my_file:
+        books_description = json.loads(my_file.read())
 
-    content_2 = list(chunked(content, 2))
+    return books_description
 
-    content_3 = list(chunked(content_2, 10))
 
-    folder = 'pages'
-
-    os.makedirs(folder, exist_ok=True)
-
+def on_reload(folder='pages'):
     env = Environment(
         loader=FileSystemLoader('.'),
         autoescape=select_autoescape(['html', 'xml'])
@@ -26,16 +23,21 @@ def on_reload():
 
     template = env.get_template('template.html')
 
-    for number, page in enumerate(content_3, start=1):
+    books_description = get_books_description()
+    chunked_books_description = list(chunked(books_description, 2))
+    pages_books_description = list(chunked(chunked_books_description, 10))
+    number_pages = len(pages_books_description)
 
-        filename = f'index{number}.html'
+    for number_page, page in enumerate(pages_books_description, start=1):
+
+        filename = f'index{number_page}.html'
 
         page_path = os.path.join(folder, filename)
 
         rendered_page = template.render(
-            content = page,
-            num = number,
-            nums = len(content_3)
+            page_content = page,
+            number_page = number_page,
+            number_pages = number_pages
         )
 
         with open(page_path, 'w', encoding="utf8") as file:
@@ -43,11 +45,15 @@ def on_reload():
 
 
 def main():
-    on_reload()
+    folder = 'pages'
 
+    os.makedirs(folder, exist_ok=True)
+
+    on_reload()
     server = Server()
     server.watch('template.html', on_reload)
     server.serve(root='.')
+
 
 if __name__ == '__main__':
     main()
