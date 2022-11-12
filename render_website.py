@@ -10,8 +10,9 @@ from jinja2 import select_autoescape
 
 def get_books_description():
     filename = 'books_content.json'
-    with open(filename, "r") as my_file:
-        books_description = json.loads(my_file.read())
+
+    with open(filename, 'r') as file:
+        books_description = json.load(file)
 
     return books_description
 
