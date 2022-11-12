@@ -26,8 +26,16 @@ def on_reload(folder='pages'):
     template = env.get_template('template.html')
 
     books_description = get_books_description()
-    chunked_books_description = list(chunked(books_description, 2))
-    pages_books_description = list(chunked(chunked_books_description, 10))
+
+    number_columns = 2
+    number_books_column = 10
+
+    chunked_books_description = list(
+        chunked(books_description, number_columns)
+    )
+    pages_books_description = list(
+        chunked(chunked_books_description, number_books_column)
+    )
     number_pages = len(pages_books_description)
 
     for number_page, page in enumerate(pages_books_description, start=1):
